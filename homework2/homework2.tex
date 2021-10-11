@@ -1,3 +1,75 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\begin{document}
+
+\begin{flushright}
+Longitudinal Analysis 2021
+
+Homework 2
+
+Ian Arriaga MacKenzie
+\end{flushright}
+
+\textbf{Question 1}\\
+
+Fitting both a linear regression model and superimposing the PCA calculated slope over the original data yields the following plot:
+
+\begin{center}
+\includegraphics[scale=0.7]{pca_plot.jpeg}
+\end{center}
+
+The slopes are very close, with the PCA slope: 1.684 and LM slope: 1.546.\\
+
+\textbf{Question 2}\\
+
+\textit{(a)}\\
+
+The main difference between a general linear model and a linear mixed model is the inclusion of the vector and design matrix (generally denoted \textbf{\textit{Zu}}) which define the random effects of the LMM. The unknown random effects \textbf{\textit{u}} generally corresponds to random intercepts or slopes for mixed effects models, and are defined by the variance-covariance matrix \textbf{\textit{G}}. The \textbf{\textit{Z}} matrix is usually an identity matrix with dimensions of the number of random effects in the model.\\
+
+\textit{(b)}\\
+
+The profile likelihood is a re-expression of the standard likelihood in which all other parameters are chosen specifically to maximize the parameter of interest. This is generally done through an EM algorithm to sequentially step through the parameter space in order to find the optimal solution, and is used to identify estimates for single parameters. The restricted likelihood optimizes the likelihood of the full residuals, which in turn allows the random effects to be estimated without bias.\\
+
+\textit{(c)}\\
+
+Unable to complete.\\
+
+\textbf{Question 3}\\
+
+\textit{(a)}\\
+
+Using a wald-type test, we return a p-value of 0.749 which suggests there is no interaction over time for the 30 and 60mg BASF groups over the 5 time points.\\
+
+\textit{(b)}\\
+
+Again, using a wald-type test, we return a p-value of 1.32E-10 which now does suggest there is difference between baseline and 12 weeks across all 4 groups.\\
+
+\textit{(c)}\\
+
+Fitting a cubic model with continuous time is almost like fitting the categorical time model however it is one degree short and therefor would probably result in higher variance in the residuals. With 5 time points, a polynomial of degree 4 would be needed to fit the data "perfectly" and so a cubic polynomial for time would be good but not great.\\
+
+\textit{(d)}\\
+
+Modeling \textit{Time0} as a covariate value is somewhat analagous to having a random intercept model. Instead of actually having random intercepts based on subject, each subject would have a different intercept based linearly on their starting carotene levels.\\
+
+\textit{(e)}\\
+
+The polynomial estimates are, linear: 479.68, quadratic: -216.34, cubic: 90.69.\\
+
+\textbf{Question 4}\\
+
+Unable to complete.
+
+\newpage
+\textbf{R Code Appendix}
+
+\begin{verbatim}
 # Longitudinal Analysis
 # Homework 2 - Ian Arriaga MacKenzie
 
@@ -108,4 +180,6 @@ bc_polyfit = lmer(formula = carotene ~ group_fac + poly(time, 3) + group_fac*tim
                   data = bc_cl)
 
 summary(bc_polyfit)
+\end{verbatim}
 
+\end{document}
